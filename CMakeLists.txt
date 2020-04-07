@@ -42,6 +42,7 @@ configure_file(TutorialConfig.h.in TutorialConfig.h)
 
 add_subdirectory(MathFunctions)
 target_link_libraries(Tutorial PUBLIC MathFunctions)
+target_include_directories(Tutorial PRIVATE ${PROJECT_BINARY_DIR})
 
 
 install(TARGETS Tutorial DESTINATION bin)
@@ -100,7 +101,6 @@ write_basic_package_version_file(
   VERSION "${Tutorial_VERSION_MAJOR}.${Tutorial_VERSION_MINOR}"
   COMPATIBILITY AnyNewerVersion
 )
-
 # install the configuration file
 install(FILES
   ${CMAKE_CURRENT_BINARY_DIR}/MathFunctionsConfig.cmake
