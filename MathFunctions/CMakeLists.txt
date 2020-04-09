@@ -10,6 +10,7 @@ target_include_directories(MathFunctions INTERFACE
 target_link_libraries(MathFunctions INTERFACE tutorial_compiler_flags)
 option(USE_MYMATH "use tutorial math" ON)
 if(USE_MYMATH)
+  target_compile_definitions(MathFunctions PRIVATE "USE_MYMATH")
 add_executable(MakeTable MakeTable.cxx)
 target_link_libraries(MakeTable INTERFACE tutorial_compiler_flags)
 # add the command to generate the source code
@@ -19,6 +20,16 @@ add_custom_command(
   DEPENDS MakeTable
   )
 
+add_custom_command(
+  OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/Table3.h
+  COMMAND MakeTable ${CMAKE_CURRENT_BINARY_DIR}/Table3.h
+  DEPENDS MakeTable
+  )
+add_custom_command(
+  OUTPUT ${CMAKE_BINARY_DIR}/Table2.h
+  COMMAND MakeTable ${CMAKE_BINARY_DIR}/Table2.h
+  DEPENDS MakeTable
+  )
 add_library(mysqrt STATIC
             mysqrt.cxx
             #${CMAKE_CURRENT_BINARY_DIR}/Table.h

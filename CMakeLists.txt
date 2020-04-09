@@ -2,6 +2,7 @@
 # and include sub-projects here.
 #
 cmake_minimum_required (VERSION 3.8)
+include (GoogleTest)
 project (Tutorial VERSION  1.0)
 
 add_library(tutorial_compiler_flags INTERFACE)
@@ -47,18 +48,23 @@ target_include_directories(Tutorial PRIVATE ${PROJECT_BINARY_DIR})
 
 install(TARGETS Tutorial DESTINATION bin)
 
-install(FILES "${PROJECT_BINARY_DIR}/TutorialConfig.h" DESTINATION include)
-# enable testing
 enable_testing()
+install(FILES "${PROJECT_BINARY_DIR}/TutorialConfig.h" DESTINATION include)
+find_package(GTest MODULE REQUIRED)
+add_executable(testTutorial testTutorial.cpp)
+target_link_libraries(testTutorial PUBLIC  GTest::GTest GTest::Main)
+gtest_discover_tests(testTutorial)
+
+# enable testing
 
 # does the application run
 add_test(NAME Runs COMMAND Tutorial 25)
 
 # does the usage message work?
-add_test(NAME Usage COMMAND Tutorial)
-set_tests_properties(Usage
-  PROPERTIES PASS_REGULAR_EXPRESSION "Usage:.*number"
-  )
+#add_test(NAME Usage COMMAND Tutorial)
+#set_tests_properties(Usage
+#  PROPERTIES PASS_REGULAR_EXPRESSION "Usage:.*number"
+#  )
 
 # define a function to simplify adding tests
 function(do_test target arg result)
@@ -69,13 +75,13 @@ function(do_test target arg result)
 endfunction(do_test)
 
 # do a bunch of result based tests
-do_test(Tutorial 4 "4 is 2")
-do_test(Tutorial 9 "9 is 3")
-do_test(Tutorial 5 "5 is 2.236")
-do_test(Tutorial 7 "7 is 2.645")
-do_test(Tutorial 25 "25 is 5")
-do_test(Tutorial -25 "-25 is [-nan|nan|0]")
-do_test(Tutorial 0.0001 "0.0001 is 0.01")
+#do_test(Tutorial 4 "4 is 2")
+#do_test(Tutorial 9 "9 is 3")
+#do_test(Tutorial 5 "5 is 2.236")
+#do_test(Tutorial 7 "7 is 2.645")
+#do_test(Tutorial 25 "25 is 5")
+#do_test(Tutorial -25 "-25 is [-nan|nan|0]")
+#do_test(Tutorial 0.0001 "0.0001 is 0.01")
 include(InstallRequiredSystemLibraries)
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/License.txt")
 set(CPACK_PACKAGE_VERSION_MAJOR "${Tutorial_VERSION_MAJOR}")

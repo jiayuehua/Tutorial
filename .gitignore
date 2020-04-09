@@ -1,6 +1,7 @@
 # Build Files
 .vs/
 build.*/
+out/
 **/CMakeFiles/
 **/CMakeCache.txt
 # Windows build files
