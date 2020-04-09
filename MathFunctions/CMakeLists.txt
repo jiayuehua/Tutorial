@@ -31,6 +31,7 @@ if(USE_MYMATH)
   # library that just does sqrt
   add_library(SqrtLibrary STATIC
               mysqrt.cxx
+              ${CMAKE_CURRENT_BINARY_DIR}/Table.h
               )
 
   # state that we depend on our binary dir to find Table.h
