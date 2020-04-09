@@ -27,6 +27,9 @@ supertux.*
 .tx/
 #translations
 
+#diff output trash
+*.orig
+
 # Useful Customization Files
 data/levels/more/
 *.patch
