@@ -3,5 +3,5 @@ TEST(blaTest, test1) {
   //arrange
   //act
   //assert
-  EXPECT_EQ(3, 0);
+  EXPECT_EQ(0, 0);
 }
